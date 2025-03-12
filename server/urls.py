@@ -20,5 +20,6 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # To resolve vue router history mode
     re_path(r'^.*$', TemplateView.as_view(template_name="index.html"), name='index'),
 ]
