@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-uez&27-cy)c$e!z=(xv-eja9)y$yy3a7j&f&6#v$h+ryingkvg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['https://gla-it-project.onrender.com', '0.0.0.0', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['gla-it-project.onrender.com', '0.0.0.0', '127.0.0.1', 'localhost']
 
 
 # Application definition
