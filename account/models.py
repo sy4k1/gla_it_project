@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.timezone import now
 
+
 # Create your models here.
 class Account(models.Model):
     email = models.EmailField(unique=True)
@@ -29,6 +30,8 @@ class AccountPasscode(models.Model):
 
 class Follower(models.Model):
     follower_email = models.EmailField(db_index=True)
+    follower_name = models.CharField(max_length=100)
+    follower_id = models.BigIntegerField()
     followed_email = models.EmailField(db_index=True)
     read = models.BooleanField(default=False)
     create_datetime = models.DateTimeField(default=now, blank=True, editable=False)
