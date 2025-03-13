@@ -263,6 +263,7 @@ function openProfile() {
 
 .post-dialog-content {
   white-space: pre-line;
+  overflow: auto;
 }
 
 .post-dialog-content,
