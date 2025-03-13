@@ -137,7 +137,7 @@ function openProfile() {
             </div>
           </div>
         </div>
-        <el-empty v-else description="No Comment" />
+        <el-empty :image-size="100" v-else description="No Comment" />
         <el-divider />
         <div class="comment-container">
           <el-button
