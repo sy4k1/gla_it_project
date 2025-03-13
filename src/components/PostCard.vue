@@ -116,6 +116,7 @@ function openProfile() {
         </div>
       </div>
       <div class="post-dialog-right">
+        <el-text class="post-dialog-title" size="large">{{ props.post.title }}</el-text>
         <el-text class="post-dialog-content">{{ props.post.content }}</el-text>
         <el-text size="small" type="info" class="post-dialog-datetime">
           Published at {{ formatDatetime(props.post.create_datetime) }}
@@ -261,11 +262,17 @@ function openProfile() {
   font-size: 18px;
 }
 
+.post-dialog-title {
+  white-space: pre-line;
+  margin-bottom: 8px;
+}
+
 .post-dialog-content {
   white-space: pre-line;
   overflow: auto;
 }
 
+.post-dialog-title,
 .post-dialog-content,
 .post-dialog-datetime {
   width: 100%;
