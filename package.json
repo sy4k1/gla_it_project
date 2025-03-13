@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
-    "build-render": "npm install && pip install -r requirements.txt && npm run build && npm run collectstatic && python manage.py makemigrations post && python manage.py makemigrations account && python manage.py migrate",
+    "dumpdata": "python manage.py dumpdata post account > site_data.json",
+    "loaddata": "python manage.py loaddata site_data.json",
+    "build-render": "npm install && pip install -r requirements.txt && npm run build && npm run collectstatic && python manage.py makemigrations post && python manage.py makemigrations account && python manage.py migrate && npm run loaddata",
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
