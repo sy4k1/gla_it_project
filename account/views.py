@@ -174,21 +174,10 @@ def send_passcode(request):
             # do nothing
             print(e)
 
-        # send passcode to user's email address
-        res = send_mail(
-            "Share Your Recipe System Passcode",
-            "Your Passcode: " + passcode,
-            "gla_it_project@qq.com",
-            [email],
-            fail_silently=False,
-        )
-        if res == 1:
-            # save the new passcode
-            account_passcode = AccountPasscode(account_email=email, passcode=passcode)
-            account_passcode.save()
-            return generate_successful_response(None)
-        else:
-            return generate_failed_response('Failed to send passcode!')
+        # save the new passcode
+        account_passcode = AccountPasscode(account_email=email, passcode=passcode)
+        account_passcode.save()
+        return generate_successful_response(passcode)
     except json.JSONDecodeError:
         return generate_failed_response('Invalid JSON!')
     except Exception as e:

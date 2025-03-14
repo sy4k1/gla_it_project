@@ -97,7 +97,7 @@ async function sendPasscode() {
   }
 
   try {
-    const resp = await sendRequest(
+    const resp = await sendRequest<{ email?: string }, string>(
       '/api/account/send_passcode',
       {
         noAccessToken: true,
@@ -112,9 +112,9 @@ async function sendPasscode() {
 
     ElMessage.success({
       plain: true,
-      message: 'Send passcode successfully!',
+      message: `Your passcode is ${resp?.data} !`,
       showClose: true,
-      duration: 2000,
+      duration: 5000,
     })
 
     sent.value = true
