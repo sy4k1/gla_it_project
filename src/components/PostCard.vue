@@ -183,7 +183,13 @@ async function deletePost() {
             {{ props.post.likes }}
           </el-button>
           <div class="comment-input">
-            <el-input v-model="newComment" placeholder="Comment" maxlength="100" show-word-limit>
+            <el-input
+              :disabled="!accountStore.hasLogin"
+              v-model="newComment"
+              :placeholder="accountStore.hasLogin ? 'Comment' : 'Please login!'"
+              maxlength="100"
+              show-word-limit
+            >
               <template #append>
                 <el-button
                   @click="sendComment"
