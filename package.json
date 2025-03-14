@@ -4,17 +4,23 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "build-render": "npm run dep && npm run build && npm run gen-db",
+    "start-render": "gunicorn server.wsgi --bind 0.0.0.0:$PORT",
     "dev": "vite",
-    "build": "run-p type-check \"build-only {@}\" --",
+    "dep": "npm install && pip install -r requirements.txt",
+    "build": "npm run build-web && npm run collectstatic",
+    "build-web": "run-p type-check \"build-only {@}\" --",
+    "collectstatic": "python manage.py collectstatic",
+    "makemigrations": "python manage.py makemigrations post && python manage.py makemigrations account",
+    "gen-db": "npm run migrate && npm run loaddata",
+    "migrate": "python manage.py migrate",
     "dumpdata": "python manage.py dumpdata post account > site_data.json",
     "loaddata": "python manage.py loaddata site_data.json",
-    "build-render": "npm install && pip install -r requirements.txt && npm run build && npm run collectstatic && python manage.py makemigrations post && python manage.py makemigrations account && python manage.py migrate && npm run loaddata",
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
-    "format": "prettier --write src/",
-    "collectstatic": "python manage.py collectstatic"
+    "format": "prettier --write src/"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
