@@ -9,4 +9,5 @@ urlpatterns = [
     path('query_like_status', views.query_like_status, name='query_like_status'),
     path('like', views.like, name='like'),
     path('comment', views.comment, name='comment'),
+    path('delete', views.delete, name='delete'),
 ]

@@ -193,3 +193,38 @@ def comment(request):
         return generate_failed_response('Invalid JSON!')
     except Exception as e:
         return generate_failed_response('An unexpected error occurred.', data=str(e))
+
+def delete(request):
+    try:
+        req = json.loads(request.body)
+        missing_fields = validate_request_data(req, ['access_token', 'id'])
+        if missing_fields:
+            return generate_missing_fields_response(missing_fields)
+
+        # validate account access token
+        access_token = req.get('access_token')
+        account_access_token = AccountAccessToken.objects.get(access_token=access_token)
+        account_email = account_access_token.account_email
+
+        # query post
+        post_id = req.get('id')
+        post = Post.objects.get(id=post_id, poster_email=account_email)
+
+        # query post like records
+        likes = LikedPost.objects.filter(post_id=post_id, poster_email=account_email)
+
+        # query post comments
+        comments = Comment.objects.filter(post_id=post_id, poster_email=account_email)
+
+        comments.delete()
+        likes.delete()
+        post.delete()
+        return generate_successful_response(True)
+    except Post.DoesNotExist:
+        return generate_failed_response('Invalid ID!')
+    except AccountAccessToken.DoesNotExist:
+        return generate_failed_response('Invalid access token!')
+    except json.JSONDecodeError:
+        return generate_failed_response('Invalid JSON!')
+    except Exception as e:
+        return generate_failed_response('An unexpected error occurred.', data=str(e))

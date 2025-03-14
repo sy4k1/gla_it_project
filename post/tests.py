@@ -61,3 +61,11 @@ class PostViewTestCase(TestCase):
         response_data = response.json()
         self.assertEqual(response_data["code"], 1)
         self.assertEqual(len(response_data["data"]), 1)
+
+    def test_delete(self):
+        response = self.client.post('/api/post/delete',{'id': 1, 'access_token': '123456'},
+                                    content_type="application/json")
+        self.assertEqual(response.status_code, 200)
+        response_data = response.json()
+        self.assertEqual(response_data["code"], 1)
+        self.assertEqual(response_data["data"], True)

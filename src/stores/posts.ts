@@ -175,7 +175,45 @@ export const usePostsStore = defineStore('posts', () => {
     }
   }
 
-  return { posts, queryPosts, updatePostLikes, comments, queryComments, liked, queryLiked, likePost, followStatus, queryFollowStatus, follow }
+  async function deletePost(post: IPost) {
+    try {
+      const resp = await sendRequest<
+        {
+          id: number
+        },
+        boolean
+      >('/api/post/delete', void 0, {
+        id: post.id,
+      })
+
+      if (resp.code !== 1) {
+        return resp?.message || 'Failed to delete!'
+      }
+
+      // delete post
+      posts.value = posts.value.filter((p) => {
+        return p.id !== post.id
+      })
+      return void 0
+    } catch (err) {
+      console.warn(err)
+      return 'Failed to delete!'
+    }
+  }
+
+  return {
+    posts,
+    queryPosts,
+    comments,
+    queryComments,
+    liked,
+    queryLiked,
+    likePost,
+    followStatus,
+    queryFollowStatus,
+    follow,
+    deletePost,
+  }
 })
 
 export const postChannels = [

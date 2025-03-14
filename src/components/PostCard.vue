@@ -56,6 +56,27 @@ function openProfile() {
     },
   })
 }
+
+async function deletePost() {
+  const err = await postsStore.deletePost(props.post)
+  if (!err) {
+    ElMessage.success({
+      plain: true,
+      message: 'Delete successfully',
+      showClose: true,
+      duration: 2000,
+    })
+    postDialogVisible.value = false
+    return
+  }
+
+  ElMessage.warning({
+    plain: true,
+    message: err,
+    showClose: true,
+    duration: 2000,
+  })
+}
 </script>
 
 <template>
@@ -113,6 +134,17 @@ function openProfile() {
           >
             Follow
           </el-button>
+          <el-popconfirm title="Are you sure to delete?">
+            <template #reference>
+              <el-button
+                type="danger"
+                v-if="accountStore.hasLogin && props.post.poster_email === accountStore.data?.email"
+                @click="deletePost"
+              >
+                Delete
+              </el-button>
+            </template>
+          </el-popconfirm>
         </div>
       </div>
       <div class="post-dialog-right">
