@@ -308,6 +308,7 @@ async function deletePost() {
 .post-dialog-content {
   white-space: pre-line;
   overflow: auto;
+  max-height: 35vh;
 }
 
 .post-dialog-title,
